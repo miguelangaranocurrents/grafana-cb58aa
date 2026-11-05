@@ -53,6 +53,11 @@ export function QueryVariableEditor({ variable, onRunQuery }: QueryVariableEdito
   } = variable.useState();
   const { value: timeRange } = sceneGraph.getTimeRange(variable).useState();
 
+  // Keep the regex in sync while typing, so results of a query that is already in flight
+  // are filtered with it; the query is re-run once the field is blurred.
+  const onRegExInput = (event: React.FormEvent<HTMLTextAreaElement>) => {
+    variable.setState({ regex: event.currentTarget.value });
+  };
   const onRegExChange = (event: React.FormEvent<HTMLTextAreaElement>) => {
     variable.setState({ regex: event.currentTarget.value });
     onRunQuery();
@@ -116,6 +121,7 @@ export function QueryVariableEditor({ variable, onRunQuery }: QueryVariableEdito
       regex={regex}
       regexApplyTo={regexApplyTo}
       onRegExChange={onRegExChange}
+      onRegExInput={onRegExInput}
       onRegexApplyToChange={onRegexApplyToChange}
       sort={sort}
       onSortChange={onSortChange}

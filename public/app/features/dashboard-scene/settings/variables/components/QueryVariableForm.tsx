@@ -39,6 +39,7 @@ interface QueryVariableEditorFormProps {
   timeRange: TimeRange;
   regex: string | null;
   onRegExChange: (event: FormEvent<HTMLTextAreaElement>) => void;
+  onRegExInput?: (event: FormEvent<HTMLTextAreaElement>) => void;
   regexApplyTo?: VariableRegexApplyTo;
   onRegexApplyToChange?: (event: VariableRegexApplyTo) => void;
   sort: VariableSort;
@@ -69,6 +70,7 @@ export function QueryVariableEditorForm({
   timeRange,
   regex,
   onRegExChange,
+  onRegExInput,
   regexApplyTo,
   onRegexApplyToChange,
   sort,
@@ -152,6 +154,7 @@ export function QueryVariableEditorForm({
           regex={regex}
           regexApplyTo={regexApplyTo}
           onRegExChange={onRegExChange}
+          onRegExInput={onRegExInput}
           onRegexApplyToChange={onRegexApplyToChange}
         />
 

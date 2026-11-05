@@ -10,11 +10,19 @@ import { VariableTextAreaField } from '../components/VariableTextAreaField';
 interface Props {
   regex: string | null;
   onRegExChange: (event: FormEvent<HTMLTextAreaElement>) => void;
+  /** Called on every edit, before the field is blurred */
+  onRegExInput?: (event: FormEvent<HTMLTextAreaElement>) => void;
   regexApplyTo?: VariableRegexApplyTo;
   onRegexApplyToChange?: (option: VariableRegexApplyTo) => void;
 }
 
-export function QueryVariableRegexForm({ regex, regexApplyTo, onRegExChange, onRegexApplyToChange }: Props) {
+export function QueryVariableRegexForm({
+  regex,
+  regexApplyTo,
+  onRegExChange,
+  onRegExInput,
+  onRegexApplyToChange,
+}: Props) {
   const APPLY_REGEX_TO_OPTIONS: Array<SelectableValue<VariableRegexApplyTo>> = useMemo(
     () => [
       {
@@ -60,6 +68,7 @@ export function QueryVariableRegexForm({ regex, regexApplyTo, onRegExChange, onR
           }
           // eslint-disable-next-line @grafana/i18n/no-untranslated-strings
           placeholder="/.*-(?<text>.*)-(?<value>.*)-.*/"
+          onChange={onRegExInput}
           onBlur={onRegExChange}
           testId={selectors.pages.Dashboard.Settings.Variables.Edit.QueryVariable.queryOptionsRegExInputV2}
           width={52}
